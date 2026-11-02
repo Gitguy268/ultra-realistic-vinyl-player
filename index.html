@@ -1,0 +1,478 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#1a1a1e" />
+    <link rel="icon" type="image/png" sizes="256x256" href="/favicon.png" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/icons/icon-192.png" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="canonical" href="https://gitguy268-ultra-realistic-vinyl-player.vercel.app/" />
+    <title>Ultra-Realistic Vinyl Player — A Browser Turntable</title>
+    <meta
+      name="description"
+      content="Play your own music on a simulated turntable: a modelled motor, tonearm, strobe, RIAA equalisation and wow and flutter, all in the browser. Nothing leaves your device."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Ultra-Realistic Vinyl Player — A Browser Turntable" />
+    <meta
+      property="og:description"
+      content="Play your own music on a simulated turntable, all in the browser."
+    />
+    <meta property="og:url" content="https://gitguy268-ultra-realistic-vinyl-player.vercel.app/" />
+    <meta property="og:site_name" content="Ultra-Realistic Vinyl Player" />
+    <meta
+      property="og:image"
+      content="https://gitguy268-ultra-realistic-vinyl-player.vercel.app/og.png"
+    />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta
+      property="og:image:alt"
+      content="A vinyl record beside the words Ultra-Realistic Vinyl Player"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Ultra-Realistic Vinyl Player",
+        "url": "https://gitguy268-ultra-realistic-vinyl-player.vercel.app/",
+        "image": "https://gitguy268-ultra-realistic-vinyl-player.vercel.app/og.png",
+        "description": "A browser turntable simulator with a modelled motor, tonearm, strobe, RIAA equalisation, and wow and flutter. Audio files stay on the device.",
+        "applicationCategory": "MultimediaApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript, Web Audio and AudioWorklet.",
+        "isAccessibleForFree": true,
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+        "author": { "@type": "Person", "name": "Lucas Van De Weerd" }
+      }
+    </script>
+  </head>
+  <body>
+    <p id="file-notice" hidden>
+      This page was opened as a file, so its styles and scripts cannot load. Run
+      <code>npm start</code> in the project folder and use the address it opens instead.
+    </p>
+    <script>
+      // Modules, the audio worklet and the service worker do not load from file:// URLs.
+      if (location.protocol === 'file:') document.getElementById('file-notice').hidden = false;
+    </script>
+    <canvas
+      id="scene"
+      class="scene"
+      role="img"
+      aria-label="Turntable. No record loaded."
+      hidden
+    ></canvas>
+    <header class="topbar">
+      <h1>Ultra-Realistic Vinyl Player</h1>
+      <div class="topbar-tools">
+        <label class="inline">
+          Mode
+          <select id="mode">
+            <option value="auto">Auto</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+          </select>
+        </label>
+        <label class="inline">
+          Plinth
+          <select id="plinth">
+            <option value="anthracite">Anthracite (TD 115 MK II grey)</option>
+            <option value="black">Black (TD 115 MK II)</option>
+            <option value="walnut">Walnut</option>
+            <option value="aluminium">Aluminium</option>
+            <option value="gloss">Gloss black</option>
+            <option value="clear">Clear</option>
+          </select>
+        </label>
+        <details id="help-menu" class="menu">
+          <summary class="btn">Help</summary>
+          <div class="menu-items">
+            <button id="open-coach" type="button">Show the tutorial</button>
+            <button id="open-tour" type="button">Tour the deck</button>
+            <button id="open-shortcuts" type="button">Keyboard shortcuts</button>
+            <button id="open-credits" type="button">Credits</button>
+          </div>
+        </details>
+      </div>
+    </header>
+    <div id="drop-overlay" class="drop-overlay" aria-hidden="true">
+      <p>Drop audio files or a cover image</p>
+    </div>
+    <main id="app" class="layout">
+      <section class="deck row" aria-label="Turntable">
+        <div id="plinth-box" class="plinth">
+          <div class="deck-top">
+            <canvas id="platter" role="img" aria-label="Turntable. No record loaded."></canvas>
+            <div class="dust-cover" aria-hidden="true"></div>
+          </div>
+          <div class="strip" role="group" aria-label="Deck controls">
+            <span id="power-led" class="led" aria-hidden="true"></span>
+            <fieldset class="speed">
+              <legend class="visually-hidden">Speed</legend>
+              <label><input type="radio" name="speed" value="shellac" /> 78</label>
+              <label><input type="radio" name="speed" value="single" /> 45</label>
+              <label><input type="radio" name="speed" value="lp" checked /> 33</label>
+            </fieldset>
+            <div class="pitch-well">
+              <label for="pitch">Pitch</label>
+              <input id="pitch" type="range" min="-6" max="6" step="0.1" value="0" />
+              <output id="pitch-value" for="pitch">0.0 %</output>
+            </div>
+            <button id="motor" class="plate" type="button" aria-pressed="false" aria-label="Motor">
+              M
+            </button>
+            <button id="play" class="plate plate-wide" type="button" aria-pressed="false">
+              Start <span aria-hidden="true">▸▸</span>
+            </button>
+            <button
+              id="lever"
+              class="plate"
+              type="button"
+              aria-pressed="false"
+              aria-label="Lift: cue lever"
+            >
+              <span aria-hidden="true">▼ ▲</span> Lift
+            </button>
+          </div>
+        </div>
+      </section>
+
+      <section class="controls row" aria-label="Controls">
+        <div class="panel transport">
+          <p class="time" aria-label="Elapsed and total time">
+            <span id="time-current">0:00</span> / <span id="time-total">0:00</span>
+          </p>
+          <div class="field">
+            <label for="seek">Position</label>
+            <input id="seek" type="range" min="0" max="1000" step="1" value="0" disabled />
+          </div>
+          <div class="button-row">
+            <button id="cover" class="btn" type="button" aria-pressed="false">Dust cover</button>
+            <button id="viz-step" class="btn" type="button" title="Next visualizer style">
+              <span aria-hidden="true">♫</span> Visualizer
+            </button>
+            <button id="focus-mode" class="btn" type="button" aria-pressed="false">
+              Focus mode
+            </button>
+          </div>
+          <div id="meters" class="meters" role="group" aria-label="Level meters"></div>
+        </div>
+
+        <div id="settings" class="panel">
+          <div class="field">
+            <label for="volume">Volume</label>
+            <input id="volume" type="range" min="0" max="100" step="1" value="80" />
+            <output id="volume-value" for="volume">80</output>
+          </div>
+
+          <div class="field">
+            <label for="noise">Surface noise</label>
+            <input id="noise" type="range" min="0" max="100" step="1" value="25" />
+            <output id="noise-value" for="noise">25</output>
+          </div>
+
+          <div class="field">
+            <label for="wear">Wear</label>
+            <input id="wear" type="range" min="0" max="1" step="0.05" value="0.2" />
+            <output id="wear-value" for="wear">0.20</output>
+          </div>
+
+          <div class="field">
+            <label for="sound">Sound</label>
+            <select id="sound">
+              <option value="flat" selected>Flat: as recorded, full level</option>
+              <option value="warm">Warm: RIAA curve on the music, quieter</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="bass">Bass</label>
+            <input id="bass" type="range" min="-12" max="12" step="1" value="0" />
+            <output id="bass-value" for="bass">0 dB</output>
+          </div>
+
+          <div class="field">
+            <label for="mid">Mid</label>
+            <input id="mid" type="range" min="-12" max="12" step="1" value="0" />
+            <output id="mid-value" for="mid">0 dB</output>
+          </div>
+
+          <div class="field">
+            <label for="treble">Treble</label>
+            <input id="treble" type="range" min="-12" max="12" step="1" value="0" />
+            <output id="treble-value" for="treble">0 dB</output>
+          </div>
+
+          <fieldset class="graphic-eq">
+            <legend>Graphic EQ in dB (Winamp's ten bands)</legend>
+            <div class="button-row">
+              <label class="check"><input id="eq-on" type="checkbox" /> On</label>
+              <label class="visually-hidden" for="eq-preset">EQ preset</label>
+              <select id="eq-preset"></select>
+              <button id="eq-load" class="btn" type="button">Load .eqf</button>
+            </div>
+            <input
+              id="eq-file"
+              type="file"
+              accept=".eqf,.q1"
+              hidden
+              aria-label="Winamp EQ preset file"
+            />
+            <div id="eq-sliders" class="eq-sliders"></div>
+          </fieldset>
+
+          <label class="check">
+            <input id="wow-flutter" type="checkbox" checked /> Wow and flutter
+          </label>
+
+          <div class="field">
+            <label for="visualizer">Label visualizer</label>
+            <select id="visualizer">
+              <option value="off" selected>Off: the printed label</option>
+              <option value="milkdrop">MilkDrop (butterchurn)</option>
+              <option value="bars">Bars (after Musializer)</option>
+              <option value="lines">Lines (ridgeline, Unknown Pleasures style)</option>
+              <option value="scope">Oscilloscope</option>
+              <option value="spectrogram">Spectrogram</option>
+              <option value="radial">Radial spectrum</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label for="mains">Strobe mains</label>
+            <select id="mains">
+              <option value="50" selected>50 Hz</option>
+              <option value="60">60 Hz</option>
+            </select>
+          </div>
+        </div>
+
+        <details id="deck-settings" class="panel fold">
+          <summary>Deck settings</summary>
+          <div class="fold-body">
+            <div class="field">
+              <label for="condition">Condition</label>
+              <select id="condition">
+                <option value="mint">Mint</option>
+                <option value="good" selected>Good</option>
+                <option value="worn">Worn</option>
+                <option value="beat">Beat-up</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="imperfection">Imperfection</label>
+              <input id="imperfection" type="range" min="0" max="1" step="0.05" value="0.5" />
+              <output id="imperfection-value" for="imperfection">50 %</output>
+            </div>
+            <label class="check"
+              ><input id="scratch-audible" type="checkbox" checked /> Scratch: hear the record while
+              you turn it</label
+            >
+            <label class="check"
+              ><input id="effects" type="checkbox" checked /> Mechanical sounds</label
+            >
+            <label class="check"
+              ><input id="record-character" type="checkbox" checked /> Record character: mono bass,
+              roll-off, soft saturation</label
+            >
+            <label class="check"
+              ><input id="keep-spinning" type="checkbox" /> Keep the platter spinning when
+              paused</label
+            >
+            <label class="check"
+              ><input id="auto-return" type="checkbox" checked /> End stop: lift the arm at the end
+              of a side (START)</label
+            >
+            <label class="check"
+              ><input id="arm-return" type="checkbox" checked /> Return the arm to its rest after
+              the end stop</label
+            >
+            <label class="check"
+              ><input id="sides" type="checkbox" /> Record sides of about 22 minutes</label
+            >
+            <label class="check"
+              ><input id="size-by-speed" type="checkbox" /> Record size follows speed (7-inch at 45,
+              10-inch at 78)</label
+            >
+            <label class="check"
+              ><input id="extended-pitch" type="checkbox" /> Extended pitch (±8 %)</label
+            >
+            <label class="check"
+              ><input id="background" type="checkbox" /> Keep playing with the screen locked</label
+            >
+          </div>
+        </details>
+
+        <div class="panel library">
+          <h2>Library</h2>
+          <div class="button-row">
+            <button id="add-files" class="btn" type="button">Add files</button>
+            <button id="add-folder" class="btn" type="button">Add folder</button>
+            <button id="clear-library" class="btn" type="button">Clear library</button>
+            <button id="desktop-toggle" class="btn" type="button" aria-controls="desktop">
+              Desktop
+            </button>
+          </div>
+          <input id="file" type="file" accept="audio/*" multiple hidden aria-label="Audio files" />
+          <input
+            id="folder"
+            type="file"
+            webkitdirectory
+            multiple
+            hidden
+            aria-label="Audio folder"
+          />
+          <div id="import" class="import" hidden>
+            <progress id="import-progress" aria-label="Import progress"></progress>
+            <span id="import-text"></span>
+            <button id="import-cancel" class="btn" type="button">Cancel</button>
+          </div>
+          <p id="status" class="status" role="status" aria-live="polite">
+            Add audio files or drop them anywhere on the page, then press Play or drag the tonearm
+            onto the record.
+          </p>
+          <div class="button-row">
+            <button id="flip" class="btn" type="button" hidden>Side A: flip</button>
+            <button id="prev" class="btn" type="button">Previous</button>
+            <button id="next" class="btn" type="button">Next</button>
+            <button id="shuffle" class="btn" type="button" aria-pressed="false">Shuffle</button>
+            <button id="repeat" class="btn" type="button" aria-pressed="false">Repeat: off</button>
+          </div>
+          <label class="check">
+            <input id="auto-advance" type="checkbox" /> Play the next track when a side ends
+          </label>
+          <ol id="tracks" class="tracks" aria-label="Queue"></ol>
+          <p id="tracks-empty" class="hint">The library is empty.</p>
+          <p id="storage-note" class="hint" role="status"></p>
+          <p class="hint">Drag ⋮⋮ or press Alt+↑ / Alt+↓ on a track to reorder the queue.</p>
+        </div>
+        <details id="record-info" class="panel fold">
+          <summary>Record info</summary>
+          <p id="info-empty" class="hint">Put a record on the platter to see its details.</p>
+          <div id="info-fields" class="fold-body" hidden>
+            <div class="field">
+              <label for="info-title">Track</label>
+              <input id="info-title" type="text" maxlength="200" />
+            </div>
+            <div class="field">
+              <label for="info-artist">Artist</label>
+              <input id="info-artist" type="text" maxlength="200" />
+            </div>
+            <div class="field">
+              <label for="info-album">Album</label>
+              <input id="info-album" type="text" maxlength="200" />
+            </div>
+            <div class="field">
+              <label for="info-year">Year</label>
+              <input id="info-year" type="text" maxlength="200" inputmode="numeric" />
+            </div>
+            <div class="field">
+              <label for="info-genre">Genre</label>
+              <input id="info-genre" type="text" maxlength="200" />
+            </div>
+            <div class="field">
+              <label for="info-notes">Liner notes</label>
+              <textarea id="info-notes" rows="4" maxlength="4000"></textarea>
+            </div>
+            <p id="info-length" class="hint"></p>
+          </div>
+        </details>
+
+        <details class="panel fold">
+          <summary>Colours</summary>
+          <div class="fold-body">
+            <div class="colour">
+              <label for="colour-accent">Accent</label>
+              <input id="colour-accent" type="color" />
+              <input
+                id="colour-accent-hex"
+                type="text"
+                maxlength="7"
+                spellcheck="false"
+                aria-label="Accent hex code"
+              />
+            </div>
+            <div class="colour">
+              <label for="colour-bg">Background</label>
+              <input id="colour-bg" type="color" />
+              <input
+                id="colour-bg-hex"
+                type="text"
+                maxlength="7"
+                spellcheck="false"
+                aria-label="Background hex code"
+              />
+            </div>
+            <div class="colour">
+              <label for="colour-surface">Panel</label>
+              <input id="colour-surface" type="color" />
+              <input
+                id="colour-surface-hex"
+                type="text"
+                maxlength="7"
+                spellcheck="false"
+                aria-label="Panel hex code"
+              />
+            </div>
+            <div class="colour">
+              <label for="colour-text">Text</label>
+              <input id="colour-text" type="color" />
+              <input
+                id="colour-text-hex"
+                type="text"
+                maxlength="7"
+                spellcheck="false"
+                aria-label="Text hex code"
+              />
+            </div>
+            <button id="colours-reset" class="btn" type="button">Reset colours</button>
+            <p id="colour-warning" class="hint" role="status"></p>
+          </div>
+        </details>
+        <p id="announcer" class="visually-hidden" aria-live="polite"></p>
+      </section>
+    </main>
+    <dialog id="shortcuts-dialog" aria-labelledby="shortcuts-title">
+      <h2 id="shortcuts-title">Keyboard shortcuts</h2>
+      <table>
+        <thead>
+          <tr>
+            <th scope="col">Key</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody id="shortcuts-body"></tbody>
+      </table>
+      <form method="dialog"><button class="btn" type="submit">Close</button></form>
+    </dialog>
+
+    <dialog id="credits-dialog" aria-labelledby="credits-title">
+      <h2 id="credits-title">Credits</h2>
+      <pre id="credits-text" tabindex="0"></pre>
+      <form method="dialog"><button class="btn" type="submit">Close</button></form>
+    </dialog>
+
+    <dialog id="coach" class="coach" aria-labelledby="coach-title">
+      <p id="coach-count" class="hint"></p>
+      <h2 id="coach-title"></h2>
+      <p id="coach-text"></p>
+      <div class="button-row">
+        <button id="coach-back" class="btn" type="button">Back</button>
+        <button id="coach-next" class="btn" type="button">Next</button>
+        <button id="coach-close" class="btn" type="button">Close tutorial</button>
+      </div>
+    </dialog>
+    <p id="tour-caption" class="tour-caption" role="status" hidden></p>
+    <div id="desktop" class="desktop" hidden></div>
+    <div id="update-toast" class="toast" role="status" hidden>
+      <span>A new version is available —</span>
+      <button id="update-reload" class="btn" type="button">Reload</button>
+      <button id="update-dismiss" class="btn" type="button">Later</button>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>

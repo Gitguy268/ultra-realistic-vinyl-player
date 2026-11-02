@@ -1,0 +1,121 @@
+/*
+ * Design tokens. Colours that differ by page mode use light-dark(light, dark).
+ * tests/contrast.test.ts parses this file and checks every text pairing.
+ */
+:root {
+  color-scheme: light dark;
+
+  --bg: light-dark(#e8e5e0, #1a1a1e);
+  --surface: light-dark(#f5f3ef, #242428);
+  --surface-raised: light-dark(#eae7e2, #2e2e33);
+  --border: light-dark(#c2beb6, #3f3f45);
+  --text: light-dark(#1a1a1e, #e8e8e8);
+  --text-muted: light-dark(#666666, #9a9aa0);
+  /* A custom accent wins over one taken from cover art, which wins over the default. */
+  --accent-default: #e8562a;
+  --accent-ink-default: #1a1208;
+  --accent: var(--custom-accent, var(--cover-accent, var(--accent-default)));
+  --accent-ink: var(--custom-accent-ink, var(--accent-ink-default));
+  --focus: light-dark(#a23a17, #ffd27a);
+
+  --label: var(--accent);
+  --label-ink: var(--accent-ink);
+
+  --meter-face: #f3e9cf;
+  --meter-ink: #2a2118;
+  --meter-red: #c0392b;
+  --led-off: #5a2a24;
+  --led-on: #ff4b3a;
+
+  /* The brushed-aluminium control strip is the same metal in both page modes. */
+  --strip: #c9c9c5;
+  --strip-shade: #a9a9a5;
+  --strip-key: #b7b7b3;
+  --strip-ink: #232326;
+  --strip-focus: #8f3214;
+
+  --cover-tint: rgb(70 78 88 / 34%);
+  --cover-edge: rgb(255 255 255 / 40%);
+  --scrim: rgb(0 0 0 / 55%);
+
+  /* Deck finish. The canvas reads the plate tokens; `anthracite` is the default. */
+  --plate: #47484b;
+  --plate-lo: #38393c;
+  --plate-hi: #5d5e62;
+  --plate-texture: speckle;
+  --plinth-a: #3a3b3e;
+  --plinth-b: #27282a;
+  --plinth-edge: #19191b;
+
+  --radius-s: 6px;
+  --radius-m: 10px;
+  --radius-l: 14px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+
+  --font: 'Inter Variable', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --shadow: 0 4px 24px rgb(0 0 0 / 40%);
+  --motion: 180ms;
+  --motion-slow: 520ms;
+}
+
+:root[data-mode='light'] {
+  color-scheme: light;
+}
+
+:root[data-mode='dark'] {
+  color-scheme: dark;
+}
+
+:root[data-plinth='walnut'] {
+  --plate: #6b4226;
+  --plate-lo: #57341c;
+  --plate-hi: #84552f;
+  --plate-texture: grain;
+  --plinth-a: #5a3e28;
+  --plinth-b: #3d2414;
+  --plinth-edge: #24150b;
+}
+
+:root[data-plinth='aluminium'] {
+  --plate: #c3c5c9;
+  --plate-lo: #aaadb1;
+  --plate-hi: #e1e3e6;
+  --plate-texture: brushed;
+  --plinth-a: #cfd2d6;
+  --plinth-b: #8f949a;
+  --plinth-edge: #6a6e74;
+}
+
+:root[data-plinth='gloss'] {
+  --plate: #151517;
+  --plate-lo: #0a0a0b;
+  --plate-hi: #303035;
+  --plate-texture: gloss;
+  --plinth-a: #2c2c31;
+  --plinth-b: #050506;
+  --plinth-edge: #000000;
+}
+
+/* The old Vinyl-Player's "liquid glass": a translucent plate over a blurred backdrop. */
+:root[data-plinth='clear'] {
+  --plate: rgb(255 255 255 / 10%);
+  --plate-lo: rgb(0 0 0 / 14%);
+  --plate-hi: rgb(255 255 255 / 34%);
+  --plate-texture: none;
+  --plinth-a: rgb(255 255 255 / 12%);
+  --plinth-b: rgb(255 255 255 / 3%);
+  --plinth-edge: rgb(255 255 255 / 22%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --motion: 0ms;
+    --motion-slow: 0ms;
+  }
+}

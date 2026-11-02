@@ -1,0 +1,178 @@
+Ultra-Realistic Vinyl Player
+Copyright (c) 2026 Lucas Van De Weerd
+Licensed under the MIT License. See LICENSE.
+
+Runtime dependencies
+--------------------
+
+@fontsource-variable/inter 5.3.0
+  Self-hosted packaging of the Inter typeface by Rasmus Andersson.
+  SIL Open Font License 1.1. Copyright (c) 2016 The Inter Project Authors
+  (https://github.com/rsms/inter). The licence text ships with every build
+  as licenses/Inter-OFL.txt (public/licenses/Inter-OFL.txt here).
+  https://fontsource.org/fonts/inter
+
+butterchurn 2.6.7 (MIT)
+  WebGL implementation of the MilkDrop visualizer by Jordan Berg, used for
+  the visualizer on the record label. Loaded only when it is switched on.
+  https://github.com/jberg/butterchurn
+  Bundled with it, both MIT: @babel/runtime, ecma-proposal-math-extensions.
+
+butterchurn-presets 2.4.7 (MIT)
+  Preset packs for butterchurn by Jordan Berg; the "minimal" pack is used.
+  The presets are community MilkDrop presets converted for butterchurn, and
+  each one names its authors in its title.
+  https://github.com/jberg/butterchurn-presets
+
+three 0.186.1 (MIT)
+  Three.js by Ricardo Cabello (mrdoob) and the three.js authors: the WebGL
+  renderer, geometry, materials, PMREM environment and the RoomEnvironment
+  helper from its examples. Copyright (c) 2010-2026 three.js authors.
+  https://github.com/mrdoob/three.js
+
+idb 8.0.4 (ISC)
+  IndexedDB wrapper by Jake Archibald, used for the track library.
+  https://github.com/jakearchibald/idb
+
+music-metadata 12.1.0 (MIT)
+  Audio tag parser by Borewit, used to read titles, artists and cover art.
+  https://github.com/Borewit/music-metadata
+  Bundled with it, all MIT: debug, strtok3, win-guid, file-type, media-typer,
+  token-types, content-type, @tokenizer/token, uint8array-extras,
+  @borewit/text-codec.
+
+workbox-window 7.4.1 (MIT)
+  Service worker registration helper by Google, bundled through
+  vite-plugin-pwa. The generated service worker also embeds Workbox runtime
+  modules (MIT) from workbox-build 7.4.1.
+  https://github.com/GoogleChrome/workbox
+
+Adapted code
+------------
+
+Musializer (MIT)
+  Copyright 2023 Alexey Kutepov and Musializer Contributors.
+  The "Bars" label visualizer (src/ui/bars.ts and drawBars in
+  src/ui/visualizer.ts) follows its spectrum analysis and its drawing,
+  rewritten for the browser.
+  https://github.com/tsoding/musializer
+
+Webamp (MIT)
+  Copyright (c) 2015 Jordan Eldredge.
+  The graphic EQ (src/audio/winamp-eq.ts) uses Webamp's band layout (ten
+  bands, shelves at the ends) and the values of Winamp's 17 built-in presets
+  from its presets/builtin.json. The .eqf reader is written from the format
+  notes in its winamp-eqf package. No Winamp skin or artwork is used. Winamp
+  is a trademark of its owner; this project is not affiliated with or
+  endorsed by Winamp, Nullsoft or Webamp.
+  https://github.com/captbaritone/webamp
+
+Development dependencies
+------------------------
+
+vite 8.3.4 (MIT)
+vitest 5.0.3 (MIT)
+typescript 5.9.3 (Apache-2.0)
+eslint 10.12.0 (MIT)
+@eslint/js 10.0.1 (MIT)
+typescript-eslint 8.71.1 (MIT)
+globals 17.13.0 (MIT)
+eslint-config-prettier 10.1.8 (MIT)
+prettier 3.9.9 (MIT)
+@commitlint/cli 21.2.3 (MIT)
+@commitlint/config-conventional 21.2.3 (MIT)
+markdown-link-check 3.15.0 (ISC)
+@types/node 22.20.5 (MIT)
+vite-plugin-singlefile 2.3.4 (MIT)
+  Inlines every script and style into the single-file build.
+@types/three 0.186.0 (MIT)
+vite-plugin-pwa 2.0.0 (MIT)
+  Generates the service worker at build time.
+playwright 1.63.0 (Apache-2.0)
+  Drives headless Chromium for the scripts in scripts/. Not shipped.
+
+Assets
+------
+
+public/favicon.svg
+  Original artwork for this project. MIT, same holder as the project.
+
+public/icons/icon-192.png, icon-512.png, maskable-512.png
+public/og.png
+  Original artwork for this project, rasterised from public/favicon.svg and the
+  HTML templates in scripts/ with headless Chromium. MIT, same holder as the
+  project. The Open Graph image is set in Inter (SIL Open Font License 1.1).
+
+scripts/fixtures/tone.flac, tone.m4a, tone.aiff
+  Generated sine tones used by the headless checks. Original work, MIT, same
+  holder as the project. Not shipped.
+
+docs/reference/crops/, contact-sheets/, walls/
+  Small crops and contact sheets of third-party photographs of the TD 115 MK II,
+  kept as research evidence for the model (docs/reference/INDEX.csv names each
+  source). They remain the property of their owners, are not part of any build
+  and are not licensed under this project's licence. No photograph, crop or
+  traced texture is shipped.
+
+public/screenshots/
+  Screenshots of this application, captured for the documentation. MIT, same
+  holder as the project.
+
+Inspirations
+------------
+
+No code, artwork or audio was taken from any of these.
+
+RIAA playback equalisation
+  The 3180, 318 and 75 microsecond time constants are the published
+  standard for microgroove records.
+
+Thorens TD 115 MK II (1981 to 1984)
+  The 3D deck is a model of this turntable, built from published
+  specifications and from photographs used as reference (docs/REFERENCE.md).
+  The THORENS wordmark and "TD 115 MKII" appear on the model as they appear on
+  the real deck: the wordmark is traced as vector paths from a photograph, the
+  model lettering is set in Inter. Thorens is a trademark of its owner. This
+  project is not affiliated with or endorsed by Thorens.
+
+Realistic Vinyl Player and its single-file edition, by Lucas Van De Weerd
+  The two projects this one succeeds (same author, MIT). Their code was copied
+  and adapted: the audio engine, worklet, library, queue and controls of the
+  app, and the record model, cut-record chain, wear, tag parsers, demo tracks
+  and self-test of the single file.
+
+henryjeff/portfolio-website
+  Its technique and discipline (one continuous 3D world, a slow camera, custom
+  shaders, restrained post-processing) guided the approach. The repository
+  has no licence, so nothing was taken from it: no code, content, layout or
+  palette.
+  https://github.com/henryjeff/portfolio-website
+
+Vinyl-Player by Lucas Van De Weerd (Gitguy268)
+  The author's earlier single-file player. Its colour palette, compact
+  controls, glow ring, tone controls, colour pickers and Record Info panel
+  were reimplemented here; no code was copied.
+  https://github.com/Gitguy268/Vinyl-Player
+
+Winampify (MIT)
+  The library desktop, where artists and albums are folders and tracks are
+  files to drag onto the player, follows its idea. No code was taken.
+  https://github.com/remigallego/winampify
+
+awesome-audio-visualization (CC0)
+  The Lines (ridgeline), Oscilloscope, Spectrogram and Radial label
+  visualizers are ideas found through this list, among them its "Lines"
+  experiment and the "Awesome Audio Player" and "CircleLineNERDDISCO" pens.
+  They are drawn from scratch; no code was taken from the list's entries.
+  https://github.com/willianjusten/awesome-audio-visualization
+
+Classic VU meters
+  The 300 ms needle ballistics follow the traditional VU specification.
+
+Contributor Covenant 2.1 (CC BY 4.0)
+  CODE_OF_CONDUCT.md is adapted from it.
+  https://www.contributor-covenant.org
+
+Keep a Changelog 1.1.0 (MIT)
+  CHANGELOG.md follows its format.
+  https://keepachangelog.com

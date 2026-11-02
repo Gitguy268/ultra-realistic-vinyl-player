@@ -1,0 +1,44 @@
+# Ultra-Realistic Vinyl Player
+
+> A browser turntable simulator. You load your own audio files and play them on
+> a modelled record deck. It is a single static web page with no server, no
+> account and no tracking; audio never leaves the device.
+
+URL: https://gitguy268-ultra-realistic-vinyl-player.vercel.app/
+Source: https://github.com/Gitguy268/realistic-vinyl-player
+License: MIT
+
+## What it does
+
+- Plays local audio files (anything the browser can decode) through a Web Audio
+  chain that models a turntable: a motor that spins up and coasts down, pitch
+  control of plus or minus 8 percent, RIAA playback equalisation, and wow and
+  flutter.
+- Draws the deck on a canvas: platter, strobe ring, record and tonearm. The
+  tonearm can be dragged onto the record, or moved with the keyboard.
+- Lets you scratch: dragging the record plays the audio by hand, forward or
+  backward. This works for files up to 150 MiB; larger files stream instead.
+- Adds optional synthesized surface noise with a wear control.
+- Keeps a library and a queue in the browser's IndexedDB, with tags, cover art,
+  shuffle, repeat and optional auto-advance.
+- Can show a visualizer on the record label while a record plays: MilkDrop
+  (butterchurn), spectrum bars after Musializer, a ridgeline, an
+  oscilloscope, a spectrogram or a radial spectrum. It is off by default.
+- Has a Winamp-style ten-band graphic EQ with Winamp's presets, and loads
+  Winamp .eqf preset files.
+- Can show the library as a desktop, with artists and albums as folders.
+- Works offline after the first visit and can be installed as an app.
+
+## What it does not do
+
+- It does not stream music from any service and ships with no audio.
+- It does not upload, analyse or share files.
+- It is not a measurement-grade emulation: the equalisation departs from the
+  ideal RIAA curve above about 10 kHz, and nothing here was tuned against real
+  hardware.
+
+## Controls
+
+Space plays or lifts the needle. L moves the cue lever, M the motor. Left and
+right arrows seek five seconds; up and down change the volume. S toggles
+shuffle, R cycles repeat, F toggles focus mode, and ? lists every shortcut.

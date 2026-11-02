@@ -1,0 +1,284 @@
+/*
+ * With WebGL the 3D scene is the page: one fixed canvas, the controls floating over it as a
+ * restrained surface. The deck's DOM twins sit on a strip along the bottom; everything else is
+ * in a drawer on the right, or a bottom sheet on phones. The page itself never scrolls; panels
+ * scroll inside themselves, so the wheel over the scene can only ever move the camera.
+ * Without WebGL none of this applies and the original layout shows the 2D deck.
+ */
+
+body.has-stage {
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  --glass: color-mix(in srgb, var(--surface) 78%, transparent);
+  --glass-border: color-mix(in srgb, var(--text) 14%, transparent);
+}
+
+.scene {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  display: block;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  cursor: grab;
+  touch-action: none;
+}
+
+.scene[hidden] {
+  display: none;
+}
+
+.scene[data-hover='arm'],
+.scene[data-hover='record'],
+.scene[data-hover='cover'],
+.scene[data-hover='pitchWheel'] {
+  cursor: grab;
+}
+
+.scene[data-hover='speedPlate'],
+.scene[data-hover='startPlate'],
+.scene[data-hover='cuePlate'],
+.scene[data-hover='unlockPin'] {
+  cursor: pointer;
+}
+
+.scene.is-grabbing {
+  cursor: grabbing;
+}
+
+body.has-stage .topbar {
+  position: fixed;
+  top: var(--space-3);
+  left: var(--space-3);
+  right: calc(380px + 2 * var(--space-3));
+  z-index: 3;
+  padding: var(--space-2) var(--space-3);
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-m);
+  backdrop-filter: blur(14px) saturate(130%);
+}
+
+body.has-stage .layout {
+  position: fixed;
+  inset: 0;
+  z-index: 2;
+  display: block;
+  max-width: none;
+  padding: 0;
+  pointer-events: none;
+}
+
+body.has-stage .layout > * {
+  pointer-events: auto;
+}
+
+/* The deck's twins: a brushed strip floating at the bottom, in the deck's own vocabulary. */
+body.has-stage .deck {
+  position: fixed;
+  left: var(--space-3);
+  right: calc(380px + 2 * var(--space-3));
+  bottom: var(--space-3);
+  display: flex;
+  justify-content: center;
+}
+
+body.has-stage .deck .plinth {
+  width: min(100%, 760px);
+  margin: 0;
+  background: none;
+  border: 0;
+  box-shadow: none;
+  overflow: visible;
+}
+
+body.has-stage .deck-top[hidden] {
+  display: none;
+}
+
+body.has-stage .deck .strip {
+  width: min(100%, 760px);
+  border-radius: var(--radius-m);
+  box-shadow: 0 10px 30px rgb(0 0 0 / 35%);
+}
+
+/* Everything else: a drawer on the right that scrolls inside itself. */
+body.has-stage .controls {
+  position: fixed;
+  top: var(--space-3);
+  right: var(--space-3);
+  bottom: var(--space-3);
+  width: 380px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  align-content: start;
+  padding: var(--space-2);
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-m);
+  backdrop-filter: blur(14px) saturate(130%);
+}
+
+/* Focus mode: the scene alone, the camera at the control view, transport floating. */
+body.has-stage.focus-mode .controls {
+  top: auto;
+  bottom: calc(var(--space-3) + 96px);
+  left: 50%;
+  right: auto;
+  width: max-content;
+  max-width: calc(100vw - 2 * var(--space-3));
+  overflow: visible;
+  background: none;
+  border: 0;
+  backdrop-filter: none;
+  transform: translateX(-50%);
+}
+
+body.has-stage.focus-mode .deck {
+  right: var(--space-3);
+}
+
+body.has-stage.focus-mode .transport {
+  position: static;
+  transform: none;
+}
+
+/* Phones: the camera pulls back (scene/camera.ts) and the drawer becomes a bottom sheet. */
+/* Phones, and tablets held upright: the sheet layout. */
+@media (max-width: 760px), (orientation: portrait) and (max-width: 1100px) {
+  body.has-stage .topbar {
+    right: var(--space-2);
+    left: var(--space-2);
+    top: var(--space-2);
+    flex-wrap: nowrap;
+    gap: var(--space-2);
+    padding: var(--space-1) var(--space-2);
+  }
+
+  body.has-stage .topbar h1 {
+    font-size: 0.85rem;
+    white-space: nowrap;
+  }
+
+  body.has-stage .topbar-tools {
+    flex-wrap: nowrap;
+    gap: var(--space-1);
+  }
+
+  /* The labels stay for screen readers; the selects say what they are. */
+  body.has-stage .topbar .inline {
+    font-size: 0;
+    gap: 0;
+  }
+
+  body.has-stage .topbar select,
+  body.has-stage .topbar summary {
+    max-width: 7.5rem;
+    font-size: 0.75rem;
+  }
+
+  body.has-stage .controls {
+    top: auto;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: auto;
+    max-height: 44vh;
+    max-height: 44dvh;
+    border-radius: var(--radius-l) var(--radius-l) 0 0;
+    border-bottom: 0;
+  }
+
+  body.has-stage .deck {
+    left: var(--space-2);
+    right: var(--space-2);
+    bottom: calc(44vh + var(--space-2));
+    bottom: calc(44dvh + var(--space-2));
+  }
+
+  body.has-stage .deck .plinth {
+    width: min(100%, 760px);
+    margin: 0;
+    background: none;
+    border: 0;
+    box-shadow: none;
+    overflow: visible;
+  }
+
+  body.has-stage .deck-top[hidden] {
+    display: none;
+  }
+
+  body.has-stage .deck .strip {
+    grid-template-columns: auto auto auto auto;
+    justify-content: center;
+    gap: var(--space-1) var(--space-2);
+    padding: var(--space-2);
+    font-size: 0.64rem;
+  }
+
+  body.has-stage .deck .strip .pitch-well {
+    grid-column: 1 / -1;
+    order: 9;
+  }
+
+  body.has-stage.focus-mode .deck {
+    bottom: var(--space-2);
+  }
+}
+
+/* The narrowest phones: the title stays for screen readers so the tools fit on one line. */
+@media (max-width: 420px) {
+  body.has-stage .topbar h1 {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+}
+
+.tour-caption {
+  position: fixed;
+  top: 76px;
+  left: 50%;
+  z-index: 4;
+  max-width: min(90vw, 560px);
+  margin: 0;
+  padding: var(--space-2) var(--space-3);
+  color: var(--text);
+  text-align: center;
+  background: color-mix(in srgb, var(--surface) 82%, transparent);
+  border: 1px solid color-mix(in srgb, var(--text) 14%, transparent);
+  border-radius: var(--radius-m);
+  backdrop-filter: blur(12px);
+  transform: translateX(-50%);
+}
+
+.tour-caption[hidden] {
+  display: none;
+}
+
+/* Files dragged over the page (H18). */
+.drop-overlay {
+  position: fixed;
+  inset: 12px;
+  z-index: 60;
+  display: none;
+  place-items: center;
+  border: 2px dashed var(--accent);
+  border-radius: 14px;
+  background: color-mix(in srgb, var(--bg, #000) 60%, transparent);
+  pointer-events: none;
+  font-weight: 600;
+}
+.drop-overlay.active {
+  display: grid;
+}
+.trk-side {
+  margin-inline-start: 0.5em;
+  font-size: 0.75em;
+  opacity: 0.7;
+}

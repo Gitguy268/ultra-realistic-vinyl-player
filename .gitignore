@@ -1,0 +1,16 @@
+node_modules/
+dist/
+dist-single/
+.scratch/
+test-results/
+playwright-report/
+*.log
+.DS_Store
+.vercel/
+.env
+.env.*
+!.env.example
+docs/reference/crops
+docs/reference/contact-sheets
+docs/reference/walls
+docs/reference/overlay.png

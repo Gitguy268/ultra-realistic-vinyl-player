@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Icon template</title>
+    <style>
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+
+      body {
+        display: grid;
+        place-items: center;
+        background: #16130f;
+      }
+
+      img {
+        width: calc(var(--scale, 0.9) * 100vmin);
+        height: calc(var(--scale, 0.9) * 100vmin);
+      }
+    </style>
+  </head>
+  <body>
+    <img src="../public/favicon.svg" alt="" />
+    <script>
+      // The record's share of the canvas comes from the URL hash, e.g. #0.62.
+      document.documentElement.style.setProperty('--scale', location.hash.slice(1) || '0.9');
+    </script>
+  </body>
+</html>

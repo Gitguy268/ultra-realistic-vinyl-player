@@ -1,0 +1,556 @@
+{
+  "version": 1,
+  "plinth": {
+    "width": 0.445,
+    "depth": 0.355,
+    "heightWithCover": 0.13,
+    "topHeight": 0.062,
+    "skirtHeight": 0.012,
+    "skirtInset": 0.009,
+    "footDiameter": 0.022,
+    "footInset": 0.028,
+    "edgeRadius": 0.0015,
+    "massKg": 7,
+    "rearBandDepth": 0.021,
+    "rearBandHeight": 0.002
+  },
+  "strip": {
+    "topDepth": 0.040600000000000004,
+    "frontFaceHeight": 0.019,
+    "lowerBandHeight": 0.011,
+    "frontTopHeight": 0.048,
+    "rearTopHeight": 0.056,
+    "endBlockWidth": 0.014
+  },
+  "plates": {
+    "width": 0.0555,
+    "depth": 0.022,
+    "thickness": 0.003,
+    "standoff": 0.0012,
+    "bevel": 0.0008,
+    "speed": {
+      "x": -0.16405,
+      "detents": [
+        "78",
+        "45",
+        "off",
+        "33"
+      ],
+      "detentPitch": 0.0045,
+      "rest": "off"
+    },
+    "unlockPin": {
+      "x": -0.2006,
+      "diameter": 0.0032,
+      "depth": 0.0014
+    },
+    "start": {
+      "x": 0.06520000000000001,
+      "detents": [
+        "m",
+        "centre",
+        "start"
+      ],
+      "detentPitch": 0.005
+    },
+    "cue": {
+      "x": 0.1524,
+      "detents": [
+        "lower",
+        "raise"
+      ],
+      "detentPitch": 0.005
+    },
+    "pitchWheel": {
+      "x": -0.1057,
+      "diameter": 0.017,
+      "exposedHeight": 0.0022,
+      "knurlCount": 48,
+      "sweepDeg": 300
+    }
+  },
+  "platter": {
+    "centreX": -0.046200000000000005,
+    "centreZ": -0.011,
+    "diameter": 0.3,
+    "massKg": 1.3,
+    "topAbovePlate": 0.014,
+    "rimDepth": 0.022,
+    "lipWidth": 0.0035,
+    "slots": {
+      "count50Hz": 90,
+      "count60Hz": 108,
+      "dutyCycle": 0.42,
+      "depth": 0.011
+    },
+    "wellClearance": 0.006
+  },
+  "mat": {
+    "diameter": 0.274,
+    "thickness": 0.003,
+    "ringRadii": [
+      0.063,
+      0.082,
+      0.101,
+      0.121
+    ],
+    "ringHeight": 0.0006,
+    "ringWidth": 0.0016,
+    "centreRadius": 0.055
+  },
+  "spindle": {
+    "diameter": 0.0072,
+    "heightAboveMat": 0.019,
+    "chamfer": 0.0012
+  },
+  "tonearm": {
+    "effectiveLength": 0.222,
+    "overhang": 0.0155,
+    "offsetDeg": 23,
+    "effectiveMassKg": 0.0075,
+    "pivotX": 0.1365,
+    "pivotZ": -0.1067,
+    "stylusDrop": 0.022,
+    "capAboveAxis": 0.009,
+    "basePlate": {
+      "width": 0.064,
+      "depth": 0.094,
+      "height": 0.003
+    },
+    "wandDiameter": 0.009,
+    "counterweight": {
+      "diameter": 0.03,
+      "length": 0.024,
+      "stubLength": 0.048
+    },
+    "restDirectionDeg": 88.6,
+    "headshellLength": 0.045,
+    "cueLift": 0.006,
+    "tripRadius": 0.052
+  },
+  "cover": {
+    "width": 0.443,
+    "depth": 0.352,
+    "height": 0.068,
+    "wall": 0.003,
+    "edgeLine": 0.0011,
+    "openHeight": 0.4,
+    "transmission": 0.55,
+    "tint": "#4a4c50",
+    "holdAboveDeg": 12,
+    "maxOpenDeg": 82,
+    "hingeInsetX": 0.013
+  },
+  "records": {
+    "lp": {
+      "diameter": 0.302,
+      "leadIn": 0.1495,
+      "outer": 0.146,
+      "inner": 0.0605,
+      "locked": 0.057,
+      "label": 0.1087,
+      "hole": 0.00724
+    },
+    "single": {
+      "diameter": 0.175,
+      "leadIn": 0.086,
+      "outer": 0.084,
+      "inner": 0.054,
+      "locked": 0.051,
+      "label": 0.089,
+      "hole": 0.038200000000000005
+    },
+    "shellac": {
+      "diameter": 0.25,
+      "leadIn": 0.123,
+      "outer": 0.1205,
+      "inner": 0.053,
+      "locked": 0.05,
+      "label": 0.076,
+      "hole": 0.00724
+    },
+    "thickness": 0.0015,
+    "gap": 0.0026,
+    "maxGapShare": 0.15,
+    "dropInset": 0.001,
+    "leadInSeconds": 2,
+    "gapSeconds": 1.5,
+    "runOutTurns": 1.5,
+    "sideSeconds": 1320,
+    "unknownDurationSeconds": 180,
+    "adapter": {
+      "diameter": 0.038,
+      "colour": "#e8b923",
+      "spokes": 3
+    }
+  },
+  "motor": {
+    "speeds": {
+      "lp": 33.333333333333336,
+      "single": 45,
+      "shellac": 78
+    },
+    "spinUpTau": 0.45,
+    "coastTau": 1,
+    "pitchRange": 0.06,
+    "extendedPitchRange": 0.08,
+    "pitchDetent": 0.0035,
+    "tripTurns": 3
+  },
+  "mechanism": {
+    "plateTravelS": 0.09,
+    "cueLiftS": 0.14,
+    "cueLowerS": 0.6,
+    "cueLowerFastS": 0.42,
+    "cueBounce": 0.08,
+    "armSwingMaxS": 0.34,
+    "armGlideTau": 0.12,
+    "armReturnS": 2.2,
+    "handTau": 0.025,
+    "slipTau": 0.08,
+    "syncTau": 0.3,
+    "suspensionHz": 4.5,
+    "suspensionDamping": 0.18,
+    "coverFriction": 0.35
+  },
+  "materials": {
+    "plinthGrey": {
+      "colour": "#3d3e40",
+      "roughness": 0.62,
+      "metalness": 0.35,
+      "sparkle": 0.18
+    },
+    "plinthBlack": {
+      "colour": "#1b1b1c",
+      "roughness": 0.6,
+      "metalness": 0.2,
+      "sparkle": 0.1
+    },
+    "aluminium": {
+      "colour": "#c9cacb",
+      "roughness": 0.32,
+      "metalness": 1,
+      "anisotropy": 0.85
+    },
+    "plateTop": {
+      "colour": "#d4d5d6",
+      "roughness": 0.28,
+      "metalness": 1,
+      "anisotropy": 0.8
+    },
+    "zamak": {
+      "colour": "#9a9b9c",
+      "roughness": 0.48,
+      "metalness": 1
+    },
+    "machinedLip": {
+      "colour": "#e2e3e4",
+      "roughness": 0.16,
+      "metalness": 1,
+      "anisotropy": 0.6
+    },
+    "rubber": {
+      "colour": "#141414",
+      "roughness": 0.86,
+      "metalness": 0
+    },
+    "steel": {
+      "colour": "#d8d9da",
+      "roughness": 0.12,
+      "metalness": 1
+    },
+    "blackAnodised": {
+      "colour": "#121212",
+      "roughness": 0.4,
+      "metalness": 0.6
+    },
+    "silverCollar": {
+      "colour": "#c0c1c2",
+      "roughness": 0.22,
+      "metalness": 1
+    },
+    "vinyl": {
+      "colour": "#0b0b0c",
+      "roughness": 0.3,
+      "metalness": 0,
+      "clearcoat": 0.6
+    },
+    "labelPaper": {
+      "colour": "#efe7d6",
+      "roughness": 0.88,
+      "metalness": 0
+    },
+    "foot": {
+      "colour": "#161616",
+      "roughness": 0.9,
+      "metalness": 0
+    },
+    "silkscreen": {
+      "colour": "#1a1a1a"
+    },
+    "walnut": {
+      "colour": "#5a3a22",
+      "roughness": 0.55,
+      "metalness": 0
+    },
+    "acrylicClear": {
+      "colour": "#f4f6f7",
+      "roughness": 0.04,
+      "metalness": 0,
+      "transmission": 0.92
+    },
+    "credenzaWalnut": {
+      "colour": "#4a2e1a",
+      "roughness": 0.45,
+      "metalness": 0,
+      "clearcoat": 0.35
+    },
+    "wallPaint": {
+      "colour": "#b9a58a",
+      "roughness": 0.92,
+      "metalness": 0
+    }
+  },
+  "finishes": {
+    "anthracite": {
+      "plinth": "plinthGrey",
+      "strip": "aluminium",
+      "label": "Anthracite (TD 115 MK II grey)"
+    },
+    "black": {
+      "plinth": "plinthBlack",
+      "strip": "aluminium",
+      "label": "Black (TD 115 MK II)"
+    },
+    "walnut": {
+      "plinth": "walnut",
+      "strip": "aluminium",
+      "label": "Walnut"
+    },
+    "aluminium": {
+      "plinth": "aluminium",
+      "strip": "aluminium",
+      "label": "Aluminium"
+    },
+    "gloss": {
+      "plinth": "plinthBlack",
+      "strip": "aluminium",
+      "label": "Gloss black",
+      "clearcoat": 1
+    },
+    "clear": {
+      "plinth": "acrylicClear",
+      "strip": "aluminium",
+      "label": "Clear acrylic"
+    }
+  },
+  "themes": {
+    "minimal": "anthracite",
+    "wood": "walnut",
+    "clear": "clear"
+  },
+  "room": {
+    "credenza": {
+      "width": 1.6,
+      "depth": 0.5,
+      "height": 0.66,
+      "top": 0.025,
+      "centreX": 0.12,
+      "frontZ": 0.2
+    },
+    "wallZ": -0.32,
+    "bounds": {
+      "left": -1.45,
+      "right": 2.1,
+      "front": 3.2,
+      "ceiling": 1.95
+    },
+    "window": {
+      "z": 0.45,
+      "y": 0.75,
+      "width": 1.1,
+      "height": 1.25
+    },
+    "lamp": {
+      "x": 0.66,
+      "z": -0.14,
+      "shadeY": 0.42,
+      "shadeRadius": 0.13,
+      "kelvin": 2700
+    },
+    "bounce": 0.3,
+    "lighting": {
+      "dusk": {
+        "exposureEV": 6.4,
+        "windowKelvin": 7400,
+        "windowLux": 190,
+        "lampLumens": 520,
+        "wall": "#a69e92"
+      },
+      "daylight": {
+        "exposureEV": 9.6,
+        "windowKelvin": 6300,
+        "windowLux": 1400,
+        "lampLumens": 0,
+        "wall": "#c4b49c"
+      }
+    }
+  },
+  "camera": {
+    "filmGauge": 36,
+    "hero": {
+      "focal": 40,
+      "position": [
+        -0.42,
+        0.52,
+        0.78
+      ],
+      "target": [
+        -0.01,
+        0.07,
+        0
+      ]
+    },
+    "control": {
+      "focal": 45,
+      "position": [
+        0,
+        0.44,
+        0.62
+      ],
+      "target": [
+        0,
+        0.05,
+        0.08
+      ]
+    },
+    "mobile": {
+      "focal": 35,
+      "position": [
+        0,
+        0.92,
+        0.92
+      ],
+      "target": [
+        0,
+        0.05,
+        0.02
+      ]
+    },
+    "intro": {
+      "durationS": 7,
+      "keyframes": [
+        {
+          "t": 0,
+          "focal": 35,
+          "position": [
+            -1.15,
+            1.2,
+            2.2
+          ],
+          "target": [
+            -0.6,
+            0.8,
+            -0.3
+          ]
+        },
+        {
+          "t": 0.45,
+          "focal": 38,
+          "position": [
+            -0.9,
+            0.8,
+            1.35
+          ],
+          "target": [
+            -0.05,
+            0.1,
+            -0.05
+          ]
+        },
+        {
+          "t": 1,
+          "focal": 40,
+          "position": [
+            -0.42,
+            0.52,
+            0.78
+          ],
+          "target": [
+            -0.01,
+            0.07,
+            0
+          ]
+        }
+      ]
+    },
+    "tour": [
+      {
+        "name": "Platter and strobe",
+        "focal": 50,
+        "position": [
+          -0.2,
+          0.2,
+          0.38
+        ],
+        "target": [
+          -0.12,
+          0.08,
+          0.1
+        ],
+        "dof": true
+      },
+      {
+        "name": "Tonearm",
+        "focal": 50,
+        "position": [
+          0.32,
+          0.3,
+          0.2
+        ],
+        "target": [
+          0.14,
+          0.11,
+          -0.08
+        ],
+        "dof": true
+      },
+      {
+        "name": "Control strip",
+        "focal": 50,
+        "position": [
+          -0.02,
+          0.21,
+          0.44
+        ],
+        "target": [
+          -0.05,
+          0.045,
+          0.15
+        ],
+        "dof": true
+      },
+      {
+        "name": "Cover and hinges",
+        "focal": 35,
+        "position": [
+          0.5,
+          0.42,
+          0.12
+        ],
+        "target": [
+          0.08,
+          0.12,
+          -0.16
+        ],
+        "dof": false
+      }
+    ],
+    "limits": {
+      "minDistance": 0.28,
+      "maxDistance": 2.4,
+      "minPolarDeg": 8,
+      "maxPolarDeg": 82
+    }
+  }
+}

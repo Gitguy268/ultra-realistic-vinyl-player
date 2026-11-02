@@ -1,0 +1,107 @@
+{
+  "image": "Thorens TD 115 MKII Turntable Overhead.png",
+  "size": 1254,
+  "camera": [
+    3032.256995099955,
+    0.9399810411118841,
+    0.009771669803096832,
+    -0.00024151134478863007,
+    0.40451740799859426,
+    -61.21735804799705,
+    -1400.9352536631131
+  ],
+  "summary": {
+    "focalPx": 3032.3,
+    "cornerRmsPx": 0.57,
+    "spindleTipToBaseMm": 0.89,
+    "platterDiameterMm": 292.7,
+    "pivotToSpindleMm": 206.5,
+    "pivotDirectionDeg": -27.8
+  },
+  "located": {
+    "spindleBase": {
+      "px": [
+        524.5,
+        640
+      ],
+      "height": 79,
+      "what": "spindle at the mat",
+      "plan": [
+        -46.4,
+        -11
+      ]
+    },
+    "spindleTip": {
+      "px": [
+        524.5,
+        616
+      ],
+      "height": 98,
+      "what": "spindle tip",
+      "plan": [
+        -46,
+        -10.2
+      ]
+    },
+    "rimLeft": {
+      "px": [
+        193,
+        660
+      ],
+      "height": 62,
+      "what": "platter rim, left extreme of the widest row",
+      "plan": [
+        -194.9,
+        -12.2
+      ]
+    },
+    "rimRight": {
+      "px": [
+        847,
+        660
+      ],
+      "height": 62,
+      "what": "platter rim, right extreme of the widest row",
+      "plan": [
+        97.8,
+        -12.2
+      ]
+    },
+    "pivotCap": {
+      "px": [
+        927.5,
+        441.5
+      ],
+      "height": 101,
+      "what": "ringed pivot cap",
+      "plan": [
+        136.5,
+        -106.9
+      ]
+    },
+    "stripRear": {
+      "px": [
+        627,
+        957
+      ],
+      "height": 56,
+      "what": "rear edge of the strip top face",
+      "plan": [
+        -1.6,
+        136.9
+      ]
+    },
+    "stylusAtRest": {
+      "px": [
+        972,
+        893
+      ],
+      "height": 82,
+      "what": "stylus tip (front of the cartridge) with the arm parked",
+      "plan": [
+        142.1,
+        121.4
+      ]
+    }
+  }
+}

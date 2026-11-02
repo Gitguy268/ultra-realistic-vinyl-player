@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://gitguy268-ultra-realistic-vinyl-player.vercel.app/sitemap.xml

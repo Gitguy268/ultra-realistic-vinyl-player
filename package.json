@@ -1,0 +1,66 @@
+{
+  "name": "ultra-realistic-vinyl-player",
+  "version": "0.1.0",
+  "private": true,
+  "description": "A Thorens TD 115 MK II modelled, lit and animated in WebGL, playing your own music through a physically modelled motor, tonearm and RIAA chain.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Lucas Van De Weerd",
+  "homepage": "https://gitguy268-ultra-realistic-vinyl-player.vercel.app",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Gitguy268/ultra-realistic-vinyl-player.git"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview --port 4183 --strictPort",
+    "typecheck": "tsc -b",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "check:links": "markdown-link-check --quiet --config .markdown-link-check.json README.md CONTRIBUTING.md CODE_OF_CONDUCT.md SECURITY.md CHANGELOG.md",
+    "verify": "npm run lint && npm run format:check && npm run typecheck && node scripts/spec-json.js --check && npm run test && npm run build && npm run build:single",
+    "check:browser": "node scripts/check-all.js",
+    "start": "npm run build && vite preview --port 4183 --strictPort --open",
+    "build:single": "tsc -b && vite build --config vite.single.config.ts",
+    "sync": "node scripts/sync-html2.js",
+    "spec": "node scripts/spec-json.js"
+  },
+  "dependencies": {
+    "@fontsource-variable/inter": "5.3.0",
+    "butterchurn": "2.6.7",
+    "butterchurn-presets": "2.4.7",
+    "idb": "8.0.4",
+    "music-metadata": "12.1.0",
+    "three": "0.186.1"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "21.2.3",
+    "@commitlint/config-conventional": "21.2.3",
+    "@eslint/js": "10.0.1",
+    "@types/node": "22.20.5",
+    "@types/three": "0.186.0",
+    "eslint": "10.12.0",
+    "eslint-config-prettier": "10.1.8",
+    "globals": "17.13.0",
+    "markdown-link-check": "3.15.0",
+    "playwright": "1.63.0",
+    "prettier": "3.9.9",
+    "typescript": "5.9.3",
+    "typescript-eslint": "8.71.1",
+    "vite": "8.3.4",
+    "vite-plugin-pwa": "2.0.0",
+    "vite-plugin-singlefile": "2.3.4",
+    "vitest": "5.0.3"
+  },
+  "overrides": {
+    "basic-ftp": "6.2.3"
+  }
+}

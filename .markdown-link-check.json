@@ -1,0 +1,16 @@
+{
+  "ignorePatterns": [
+    {
+      "pattern": "^https://gitguy268-realistic-vinyl-player\\.vercel\\.app"
+    },
+    {
+      "pattern": "^https://github\\.com/Gitguy268/realistic-vinyl-player"
+    },
+    {
+      "pattern": "^https://github\\.com/Gitguy268/ultra-realistic-vinyl-player-html"
+    }
+  ],
+  "retryOn429": true,
+  "retryCount": 3,
+  "timeout": "20s"
+}

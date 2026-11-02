@@ -1,0 +1,9 @@
+dist
+dev-dist
+coverage
+node_modules
+package-lock.json
+.scratch
+.vercel
+src/spec/deck.json
+docs/reference/overhead-camera.json
