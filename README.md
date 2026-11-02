@@ -37,6 +37,33 @@ feature, double-click to run, no server.
 | :---------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------: |
 | <img src="docs/screenshots/mobile-dark.png" alt="The deck on a phone in dark mode" width="170"> | <img src="docs/screenshots/mobile-light.png" alt="The deck on a phone in light mode" width="170"> | <img src="docs/screenshots/macro-strip.jpg" alt="Close-up of the brushed strip with its lettering and wordmark" width="300"> |
 
+<!-- run-steps:start -->
+## Run it locally, step by step
+
+1. **Install [Node.js](https://nodejs.org) 22** or newer.
+
+2. **Get the code:**
+
+   ```sh
+   git clone https://github.com/Gitguy268/ultra-realistic-vinyl-player.git
+   cd ultra-realistic-vinyl-player
+   ```
+
+3. **Install the dependencies:**
+
+   ```sh
+   npm ci
+   ```
+
+4. **Start it:**
+
+   ```sh
+   npm run dev
+   ```
+
+5. **Open <http://localhost:5173/>** in your browser. Press `Ctrl+C` in the terminal to stop.
+<!-- run-steps:end -->
+
 ## Features
 
 | Feature                                                                                                 | Status                            |
