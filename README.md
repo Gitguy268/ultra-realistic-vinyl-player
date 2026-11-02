@@ -37,6 +37,10 @@ feature, double-click to run, no server.
 | :---------------------------------------------------------------------------------------------: | :-----------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------------------: |
 | <img src="docs/screenshots/mobile-dark.png" alt="The deck on a phone in dark mode" width="170"> | <img src="docs/screenshots/mobile-light.png" alt="The deck on a phone in light mode" width="170"> | <img src="docs/screenshots/macro-strip.jpg" alt="Close-up of the brushed strip with its lettering and wordmark" width="300"> |
 
+<!-- live-links -->
+**Live:** [gitguy268.github.io/ultra-realistic-vinyl-player](https://gitguy268.github.io/ultra-realistic-vinyl-player/) · [ultra-realistic-vinyl-player.vercel.app](https://ultra-realistic-vinyl-player.vercel.app)
+<!-- /live-links -->
+
 <!-- run-steps:start -->
 ## Run it locally, step by step
 
