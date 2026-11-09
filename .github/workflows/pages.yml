@@ -23,7 +23,7 @@ jobs:
       - run: npm ci || npm install
       - run: npm run build -- --base=/ultra-realistic-vinyl-player/
       - run: cp dist/index.html dist/404.html
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: dist
   deploy:
