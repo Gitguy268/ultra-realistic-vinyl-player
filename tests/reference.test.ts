@@ -42,7 +42,11 @@ describe('reference claims', () => {
     const cited = [...new Set(evidence.match(/\bv\d+\b/g) ?? [])];
     expect(cited.length).toBeGreaterThan(0);
     expect(cited.some((v) => gradeOf.get(v) === 'A')).toBe(true);
-    for (const crop of evidence.match(/`[^`]+`/g) ?? []) {
+    // The crops are photographs kept out of the repository, so they are only checked where present.
+    const crops = existsSync(new URL('../docs/reference/crops', import.meta.url))
+      ? (evidence.match(/`[^`]+`/g) ?? [])
+      : [];
+    for (const crop of crops) {
       expect(
         existsSync(new URL(`../docs/reference/crops/${crop.slice(1, -1)}.jpg`, import.meta.url)),
       ).toBe(true);

@@ -38,10 +38,12 @@ feature, double-click to run, no server.
 | <img src="docs/screenshots/mobile-dark.png" alt="The deck on a phone in dark mode" width="170"> | <img src="docs/screenshots/mobile-light.png" alt="The deck on a phone in light mode" width="170"> | <img src="docs/screenshots/macro-strip.jpg" alt="Close-up of the brushed strip with its lettering and wordmark" width="300"> |
 
 <!-- live-links -->
+
 **Live:** [gitguy268.github.io/ultra-realistic-vinyl-player](https://gitguy268.github.io/ultra-realistic-vinyl-player/) · [ultra-realistic-vinyl-player.vercel.app](https://ultra-realistic-vinyl-player.vercel.app)
 <!-- /live-links -->
 
 <!-- run-steps:start -->
+
 ## Run it locally, step by step
 
 1. **Install [Node.js](https://nodejs.org) 22** or newer.
@@ -66,6 +68,7 @@ feature, double-click to run, no server.
    ```
 
 5. **Open <http://localhost:5173/>** in your browser. Press `Ctrl+C` in the terminal to stop.
+
 <!-- run-steps:end -->
 
 ## Features
