@@ -15,6 +15,7 @@ import { byId, formatSigned, formatTime, setAttr, setText } from './ui/dom';
 import { bindDesktop } from './ui/desktop';
 import { bindGraphicEq } from './ui/graphic-eq';
 import { bindLibraryPanel } from './ui/library-panel';
+import { listenForShelf } from './shelf';
 import {
   bindMediaSession,
   showMediaMetadata,
@@ -61,7 +62,10 @@ const SHEET_LAYOUT = matchMedia(
 
 const deck = new Deck();
 const query = new URLSearchParams(location.search);
-const player = new Player(deck, query.has('demo'));
+const player = new Player(
+  deck,
+  query.has('shelf') ? 'shelf' : query.has('demo') ? 'demo' : 'library',
+);
 const canvas = byId<HTMLCanvasElement>('platter');
 const sceneCanvas = byId<HTMLCanvasElement>('scene');
 const pitch = byId<HTMLInputElement>('pitch');
@@ -207,6 +211,7 @@ bindMediaSession({
     deck.seek(Math.max(0, Math.min(deck.duration, deck.engine.currentTime + seconds))),
 });
 void player.start();
+if (query.has('shelf')) listenForShelf(deck, player);
 bindUpdateToast();
 
 playButton.addEventListener('click', () => deck.togglePlay());

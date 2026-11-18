@@ -110,6 +110,8 @@ npm run dev
 Open the printed URL, press **Add files**, then **Start** (or drag the headshell
 onto the record). `http://localhost:5173/?demo` plays three synthesized tracks without touching your
 library.
+`?shelf` waits for one album from [Vinyl Shelf](https://github.com/Gitguy268/vinyl-shelf), a 3D record shelf over your music folder, over the
+[vinyl-shelf/1 protocol](https://github.com/Gitguy268/vinyl-shelf/blob/main/docs/PROTOCOL.md). It plays beside the library and never enters it.
 
 To try the production build instead, `npm start` builds it, serves it and opens
 it in your browser. Opening `index.html` directly as a file does not work: a

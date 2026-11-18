@@ -25,6 +25,8 @@ export interface PlayerEvents {
   progress: ImportProgress | null;
 }
 
+export type PlayerMode = 'library' | 'demo' | 'shelf';
+
 const LARGE_IMPORT_BYTES = 50 * 1024 * 1024;
 
 /** The library and queue, and the rules for moving between tracks on the deck. */
@@ -36,14 +38,19 @@ export class Player {
   readonly deck: Deck;
   private readonly library: TrackStore;
   private globalCover: Blob | null = null;
-  /** `?demo`: three synthesized tracks beside the library, which stays closed and untouched. */
+  /**
+   * `?demo` (three synthesized tracks) and `?shelf` (one album from Vinyl Shelf) run beside the
+   * library, which stays closed and untouched.
+   */
   private readonly demo: boolean;
+  private readonly mode: PlayerMode;
   private loadedId: string | null = null;
   private importAbort: AbortController | null = null;
 
-  constructor(deck: Deck, demo = false) {
+  constructor(deck: Deck, mode: PlayerMode = 'library') {
     this.deck = deck;
-    this.demo = demo;
+    this.mode = mode;
+    const demo = (this.demo = mode !== 'library');
     this.library = demo
       ? new NoStore()
       : __PROFILE__ === 'html'
@@ -98,6 +105,7 @@ export class Player {
   /** Restores the library and queue saved by an earlier visit. */
   async start(): Promise<void> {
     this.autoAdvance = readStored('autoAdvance') === true;
+    if (this.mode === 'shelf') return;
     if (this.demo) {
       await this.import(demoFiles());
       for (const track of this.tracks.values()) {
@@ -166,9 +174,10 @@ export class Player {
     if (result.failed > 0) notes.push(`${result.failed} could not be stored.`);
     this.events.emit('status', notes.join(' '));
     // Firefox asks the user before answering, so this must not hold up the import.
-    void this.requestPersistence().then((answer) => {
-      if (answer) this.events.emit('storage', answer);
-    });
+    if (!this.demo)
+      void this.requestPersistence().then((answer) => {
+        if (answer) this.events.emit('storage', answer);
+      });
     this.events.emit('announce', notes[0] ?? '');
     this.events.emit('change', undefined);
     const first = result.tracks[0];

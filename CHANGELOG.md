@@ -11,6 +11,7 @@ the 2D player this project grew out of, and is kept.
 
 ### Added
 
+- `?shelf`: plays one album handed over by [Vinyl Shelf](https://github.com/Gitguy268/vinyl-shelf) (the vinyl-shelf/1 protocol), beside the saved library and without writing to it. In browsers that keep sound off in a framed page, a "Tap to drop the needle" button appears.
 - A Three.js model of the deck, every part at spec dimensions from graded photographs
   ([docs/REFERENCE.md](docs/REFERENCE.md)): moulded top plate, brushed strip with its silkscreen,
   slotted platter, ringed mat, gimbal arm, headshell and cartridge, acrylic cover on sprung hinges,
