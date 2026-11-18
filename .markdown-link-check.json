@@ -1,6 +1,9 @@
 {
   "ignorePatterns": [
     {
+      "pattern": "^http://localhost"
+    },
+    {
       "pattern": "^https://gitguy268-realistic-vinyl-player\\.vercel\\.app"
     },
     {
